@@ -76,3 +76,20 @@ describe('Creating new cities', function() {
       .expect(/hukuevo/i, done);
   })
 });
+
+describe('Deleting cities', function() {
+
+  before(function() {
+    client.hset('cities', 'Banana', 'desc 1');
+  });
+
+  after(function() {
+    client.flushdb();
+  });
+
+  it('Returns 204', function(done) {
+    request(app)
+      .delete('/cities/Banana')
+      .expect(204, done);
+  });
+});
