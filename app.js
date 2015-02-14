@@ -27,6 +27,19 @@ app.get('/cities', function(request, response) {
   });
 });
 
+app.get('/cities/:name', function(request, response) {
+  client.hget('cities', request.params.name, function(error, description) {
+    if(error) throw error;
+
+    response.render('show.ejs', {
+      city: {
+        name: request.params.name,
+        description: description
+      }
+    });
+  });
+});
+
 app.post('/cities', urlencode, function(request, response) {
   var newCity = request.body;
 

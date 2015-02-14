@@ -96,3 +96,31 @@ describe('Deleting cities', function() {
       .expect(204, done);
   });
 });
+
+describe('Shows city info', function() {
+  before(function() {
+    client.hset('cities', 'Soldo', 'soldos city');
+  });
+
+  after(function() {
+    client.flushdb();
+  });
+
+  it('Returns 200', function(done) {
+    request(app)
+      .get('/cities/Soldo')
+      .expect(200, done);
+  });
+
+  it('Returns HTML format', function(done) {
+    request(app)
+      .get('/cities/Soldo')
+      .expect('Content-Type', /html/, done);
+  });
+
+  it('Returns information for the given city', function(done) {
+    request(app)
+      .get('/cities/Soldo')
+      .expect(/soldos/, done);
+  });
+});
