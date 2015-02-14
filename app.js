@@ -15,9 +15,8 @@ if (process.env.REDISTOGO_URL) {
   client.auth(rtg.auth.split(":")[1]);
 } else {
   var client = redis.createClient();
+  client.select((process.env.NODE_ENV || 'development').length);
 }
-
-client.select((process.env.NODE_ENV || 'development').length);
 
 app.get('/cities', function(request, response) {
 
