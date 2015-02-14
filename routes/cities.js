@@ -44,7 +44,7 @@ router.route('/:name')
     client.hget('cities', request.params.name, function(error, description) {
       if(error) throw error;
 
-      response.render('show.ejs', {
+      response.render('show', {
         city: {
           name: request.params.name,
           description: description
