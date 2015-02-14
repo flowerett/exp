@@ -47,3 +47,19 @@ describe('Listing cities on /cities', function() {
       ]), done);
   });
 });
+
+describe('Creating new cities', function() {
+  it('Returns a 201', function(done) {
+    request(app)
+      .post('/cities')
+      .send('name=Hukuevo,&description=where+the+dead+mozay+lives')
+      .expect(201, done);
+  });
+
+  it('Return the city name', function(done) {
+    request(app)
+      .post('/cities')
+      .send('name=Hukuevo,&description=where+the+dead+mozay+lives')
+      .expect(/hukuevo/i, done);
+  })
+});
