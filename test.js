@@ -58,10 +58,6 @@ describe('Listing cities on /cities', function() {
 });
 
 describe('Creating new cities', function() {
-
-  before(function(){
-
-  });
   it('Returns a 201', function(done) {
     request(app)
       .post('/cities')
@@ -75,6 +71,13 @@ describe('Creating new cities', function() {
       .send('name=Hukuevo,&description=where+the+dead+mozay+lives')
       .expect(/hukuevo/i, done);
   })
+
+  it('Validates city name & description', function(done) {
+    request(app)
+      .post('/cities')
+      .send('name=,&description=')
+      .expect(400, done);
+  });
 });
 
 describe('Deleting cities', function() {
