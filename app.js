@@ -1,8 +1,14 @@
 var express = require('express');
 var app = express();
 
-app.get('/', function(req, res) {
-  res.send('OK');
+app.use(express.static('public'));
+
+app.get('/cities', function(request, response) {
+  var cities = [
+    'Caspiana', 'Indigo'
+  ];
+
+  response.json(cities);
 });
 
 module.exports = app;

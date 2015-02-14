@@ -11,6 +11,39 @@ describe('Requests to the root path', function() {
         if(error) throw error;
         done();
       });
+  });
 
+  it('Returns a HTML', function(done) {
+    request(app)
+      .get('/')
+      .expect('Content-Type', /html/, done);
+  });
+
+  it('Returns an index file with cities', function(done) {
+    request(app)
+      .get('/')
+      .expect(/cities/i, done);
+  });
+});
+
+describe('Listing cities on /cities', function() {
+  it('Returns 200 status code', function(done) {
+    request(app)
+      .get('/cities')
+      .expect(200, done);
+  });
+
+  it('Returns JSON format', function(done) {
+    request(app)
+      .get('/cities')
+      .expect('Content-Type', /json/, done);
+  });
+
+  it('Returns initial cities', function(done) {
+    request(app)
+      .get('/cities')
+      .expect(JSON.stringify([
+        'Caspiana', 'Indigo'
+      ]), done);
   });
 });
